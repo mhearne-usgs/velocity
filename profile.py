@@ -2,11 +2,14 @@
 
 #stdlib libraries
 import time
+import datetime
 import argparse
 import sys
 
 #third-party libraries
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 class velocityProfile:
@@ -510,9 +513,14 @@ def main(args,parser):
         sys.exit(0)
     worldProfiles = readProfiles(args.datafile)
     worldProfiles.select_location(args.radius[0],args.radius[1],args.radius[2])
+    worldProfiles.plot_v(selection=worldProfiles.selection)
     for p in worldProfiles.selection:
         print worldProfiles.profiles[p]
         print
+    if args.doPlot:
+        fname = 'velocity'+datetime.datetime.now().strftime('%Y%m%d%H%M%S')+'.png'
+        plt.savefig(fname)
+        sys.stderr.write('Saved plot to %s\n' % fname)
 
 if __name__ == '__main__':
     usage = 'Extract velocity/depth profiles from input data file.'
@@ -521,6 +529,8 @@ if __name__ == '__main__':
                            help='Data file from which to extract velocity/depth profiles')
     cmdparser.add_argument("-r", "--radius", dest="radius",nargs=3,
                            help="lat,lon and radius (in degrees) for profile search", metavar=('LAT','LON','RADIUS'),type=float)
+    cmdparser.add_argument("-p", "--plot", dest="doPlot", default=False,action='store_true',
+                           help="Create a PNG plot of results (filename velocity_YYYYMMDDHHMMSS.png')")
     cmdargs = cmdparser.parse_args()
     main(cmdargs,cmdparser)    
 
