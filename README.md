@@ -1,13 +1,13 @@
 velocity
 ========
 
-Extract velocity depth profiles from data file.  
+Extract velocit/depth profiles from data file.  
 
 Usage
 ========
 
 <pre>
-usage: velocity.py [-h] [-r LAT LON RADIUS] DATAFILE
+usage: profile.py [-h] [-r LAT LON RADIUS] DATAFILE
 
 Extract velocity/depth profiles from input data file.
 
@@ -22,7 +22,7 @@ optional arguments:
 
 To select all of the profiles in a 0.25 degree radius around UC Berkeley stadium:
 
-./velocity.py -r 37.869045 -122.264826 0.25 gscnew.txt 
+./profile.py -r 37.869045 -122.264826 0.25 gscnew.txt 
 Profile uid: 2206 (37.87N, -122.26E)
 Vp	Vs	H	Depth
 nan	3.6	17.0	0.0	
